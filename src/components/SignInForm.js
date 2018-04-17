@@ -1,40 +1,43 @@
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 import Button from 'material-ui/Button';
-import {FormControl ,FormHelperText} from 'material-ui/Form';
-import TextField from  'material-ui/TextField';
+import LabelField from './LabelField';
+import submit from '../containers/Submit';
+import jss from 'jss'
+import preset from 'jss-preset-default'
+jss.setup(preset())
+
+const styles  = {
+    button: {
+        color: '#fff',
+        background: 'rgb(48,63,159)',
+        'border-radius': '300px',
+        'border-width': '4px',
+        'border-style': 'solid',
+        outline:'none',
+		'left': '0',
+		'top': '0',
+		width: '50px',
+		height: "50px",
+		
+    }
+  }
+
+const {classes} = jss.createStyleSheet(styles).attach();
 
 let SignInForm = props => {
+    const { handleSubmit } = props;
 
-    const {  error, handleSubmit } = props;
-    let errorText;
     return (
-
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(submit)}>
             <div>
-                {/*<label>login</label>*/}
-
-                <FormControl  >
-                <Field name="login" component='text'>
-                    <TextField error={ error ==="Wrong login!" } placeholder="Enter login" type="text" label="Login" />
-                    <FormHelperText  error={ error ==="Wrong login!" ? errorText = error : errorText  = ""}> {errorText }</FormHelperText>
-                </Field>
-                </FormControl>
-               {/*<span> {error && <strong>{error}</strong>}</span>*/}
+                <Field name='login' type='text' placeholder='Enter login' label='login' component={LabelField} />
             </div>
             <div>
-                {/*<label>password</label>*/}
-                {/*<Field  name="pass" component="input" type="password" />*/}
-                <FormControl>
-                <Field name="password" component='text'>
-                <TextField  error={error ==="Wrong password!"} type="password" placeholder="Enter password" label="Password"/>
-                    <FormHelperText  error={ error ==="Wrong password!" ? errorText = error : errorText = "" }>{errorText}</FormHelperText>
-                </Field>
-                </FormControl>
-                {/*<span> {error && <strong>{error}</strong>}</span>*/}
+                <Field name='password' type='password' placeholder='Enter password'  label='password' component={LabelField} />
             </div>
             <br/>
-            <Button variant="raised" color="primary" type='sigin'>Sign In</Button>
+            <Button class={classes.button} type='submit'>Sign In</Button>
         </form>
     )
 }
