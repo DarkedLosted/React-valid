@@ -6,7 +6,7 @@ import TextField from  'material-ui/TextField';
 const LabelField = ({meta: { touched, error }, label, placeholder,type }) => ( 
     <FormControl>
         <Field name={label} component='text'>
-        <TextField error={!!error} placeholder={placeholder} type={type} label={label} />
+        <TextField error={!!error && touched} placeholder={placeholder} type={type} label={label} />
         {touched && error && <FormHelperText error={!!error} > {error }</FormHelperText>}
         </Field>
     </FormControl>

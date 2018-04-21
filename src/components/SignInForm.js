@@ -25,6 +25,20 @@ const styles  = {
 
 const {classes} = jss.createStyleSheet(styles).attach();
 
+const validate = values => {
+    const errors = {};
+
+    if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.login)){
+        errors.login = 'Incorrect email';
+    }
+
+    if(!values.password || values.password !== '123')    {
+        errors.password = 'Incorrect password';
+    } 
+
+    return errors;
+}
+
 let SignInForm = props => {
     const { handleSubmit } = props;
 
@@ -43,7 +57,8 @@ let SignInForm = props => {
 }
 
 SignInForm = reduxForm({
-    form: 'signin'
+    form: 'signin',
+    validate
 })(SignInForm)
 
 export default SignInForm
